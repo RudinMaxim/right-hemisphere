@@ -1,15 +1,26 @@
 import { Alert } from 'antd';
 import { ErrorAlert, Loader } from '../../components';
 import { useGetUsersQuery } from '../../services/apiService';
+import { isErrorWithMessage } from '../../utils/isErrorWithMessage';
+
+const renderError = (error: string) => <ErrorAlert message={error} />;
+const renderLoader = () => <Loader />;
+const renderEmptyMessage = () => (
+    <Alert message={'No users found'} type="warning" showIcon />
+);
 
 export const useUsers = () => {
-    const { data: users, isLoading: isLoadingUsers, error: usersError } = useGetUsersQuery();
+    const {
+        data: users,
+        isLoading: isLoadingUsers,
+        error: usersError,
+    } = useGetUsersQuery();
 
-    if (usersError && 'message' in usersError) {
+    if (isErrorWithMessage(usersError)) {
         return {
             users: null,
             isLoadingUsers: false,
-            error: <ErrorAlert message={usersError.message} />,
+            error: renderError(usersError.message),
         };
     }
 
@@ -17,7 +28,7 @@ export const useUsers = () => {
         return {
             users: null,
             isLoadingUsers: true,
-            error: <Loader />,
+            error: renderLoader(),
         };
     }
 
@@ -25,7 +36,7 @@ export const useUsers = () => {
         return {
             users: null,
             isLoadingUsers: false,
-            error: <Alert message={'No users found'} type="warning" showIcon />,
+            error: renderEmptyMessage(),
         };
     }
 

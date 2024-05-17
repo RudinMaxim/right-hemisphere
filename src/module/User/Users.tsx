@@ -1,10 +1,7 @@
-import {
-    List
-} from 'antd';
+import { List } from 'antd';
 import { Loader } from '../../components';
 import { UserListItem } from './components';
 import { useUsers } from './useUsers';
-
 
 /**
  * Renders a list of users, handling loading and error states.
@@ -14,17 +11,12 @@ import { useUsers } from './useUsers';
 export function Users(): JSX.Element | null {
     const { users, isLoadingUsers, error } = useUsers();
 
-    if (error) {
-        return <>{error}</>;
-    }
+    if (error) return <>{error}</>;
 
-    if (isLoadingUsers) {
-        return <Loader />;
-    }
+    if (isLoadingUsers) return <Loader />;
 
-    if (!users) {
-        return null;
-    }
+    if (!users) return null;
+
     return (
         <List
             itemLayout="horizontal"
@@ -33,4 +25,3 @@ export function Users(): JSX.Element | null {
         />
     );
 }
-

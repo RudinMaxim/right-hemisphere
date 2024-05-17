@@ -1,4 +1,12 @@
-import { Avatar, Card, Descriptions, Typography } from 'antd';
+import {
+    BuildOutlined,
+    FieldTimeOutlined,
+    HomeOutlined,
+    MailOutlined,
+    PhoneOutlined,
+    SmileOutlined,
+} from '@ant-design/icons';
+import { Avatar, Card, Descriptions, Space, Typography } from 'antd';
 import { IUser } from '../../../types/User';
 import { initialsUser } from '../../../utils/initialsUser';
 
@@ -6,45 +14,50 @@ const { Meta } = Card;
 const { Text, Link } = Typography;
 
 export function UserInfo({ user }: { user: IUser }): JSX.Element {
-    const { name, username, email, address, phone, website, company } = user;
+    const { name, username, email, address, phone, company } = user;
     const { street, suite, city, zipcode } = address;
     const { name: companyName, catchPhrase, bs } = company;
 
     return (
-        <Meta
-            avatar={<Avatar>{initialsUser(name)}</Avatar>}
-            title={
-                <Text strong>
-                    {name} #{username}
-                </Text>
-            }
-            description={
-                <Descriptions column={1}>
-                    <Descriptions.Item label="📧 Email">
-                        <Link href={`mailto:${email}`}> {email}</Link>
-                    </Descriptions.Item>
-                    <Descriptions.Item label="🏠 Address">
-                        {street}, {suite}, {city}, {zipcode}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="📞 Phone">
-                        <Link href={`tel:${phone}`}> {phone}</Link>
-                    </Descriptions.Item>
-                    <Descriptions.Item label="🏢 Company">
-                        {companyName}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="💡Catch Phrase">
-                        {catchPhrase}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="📈Business Summary">
-                        {bs}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="🌐 Website">
-                        <Link href={`https://${website}`} target="_blank">
-                            {website}
-                        </Link>
-                    </Descriptions.Item>
-                </Descriptions>
-            }
-        />
+        <Space direction="vertical" size="large" style={{ width: '100%' }}>
+            <Meta
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+                avatar={<Avatar>{initialsUser(name)}</Avatar>}
+                title={
+                    <Text strong>
+                        {name} #{username}
+                    </Text>
+                }
+            />
+            <Descriptions
+                bordered
+                column={{ xs: 1, sm: 2, md: 2, lg: 3 }}
+                size="small"
+                labelStyle={{ fontWeight: 'bold' }}
+            >
+                <Descriptions.Item label={<MailOutlined />}>
+                    <Link href={`mailto:${email}`}>{email}</Link>
+                </Descriptions.Item>
+                <Descriptions.Item label={<HomeOutlined />}>
+                    {street}, {suite}, {city}, {zipcode}
+                </Descriptions.Item>
+                <Descriptions.Item label={<PhoneOutlined />}>
+                    <Link href={`tel:${phone}`}>{phone}</Link>
+                </Descriptions.Item>
+                <Descriptions.Item label={<BuildOutlined />}>
+                    {companyName}
+                </Descriptions.Item>
+                <Descriptions.Item label={<SmileOutlined />}>
+                    {catchPhrase}
+                </Descriptions.Item>
+                <Descriptions.Item label={<FieldTimeOutlined />}>
+                    {bs}
+                </Descriptions.Item>
+            </Descriptions>
+        </Space>
     );
 }
