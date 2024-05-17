@@ -1,6 +1,6 @@
 import { Alert } from 'antd';
 import { ErrorAlert, Loader } from '../../components';
-import { useGetUsersQuery } from '../../services/apiUser';
+import { useGetUsersQuery } from '../../services/apiService';
 
 export const useUsers = () => {
     const { data: users, isLoading: isLoadingUsers, error: usersError } = useGetUsersQuery();

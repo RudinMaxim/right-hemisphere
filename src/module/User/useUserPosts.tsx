@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ErrorAlert } from '../../components';
-import { useGetPostsByUserQuery } from '../../services/apiUser';
+import { useGetPostsByUserQuery } from '../../services/apiService';
 
 export const useUserPosts = (userId: number) => {
     const [isModalOpen, setIsModalOpen] = useState(false);

@@ -1,15 +1,15 @@
 import { Typography } from 'antd';
-import { Users } from '../module';
+import { Posts } from '../module';
 
 const { Title } = Typography;
 
-export function HomePage() {
+export function PostPage() {
     return (
         <section>
             <Title level={1} style={{ textAlign: 'center' }}>
-                Users
+                Post
             </Title>
-            <Users />
+            <Posts />
         </section>
     );
 }

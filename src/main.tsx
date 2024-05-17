@@ -11,12 +11,12 @@ const { Content, Footer } = Layout;
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Provider store={store}>
-            <Layout>
-                <Content style={{ padding: '0 30px' }}>
+            <Layout className="ant-layout">
+                <Content className="ant-layout-content">
                     <AppRoutes />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                    2024 © "Правое Полушарие Интроверта"
+                    2024 © Рудин Максим для "Правое Полушарие Интроверта"
                 </Footer>
             </Layout>
         </Provider>
