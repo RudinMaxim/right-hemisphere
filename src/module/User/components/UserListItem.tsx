@@ -4,9 +4,9 @@ import { IUser } from '../../../types/User';
 import { useUserPosts } from '../useUserPosts';
 
 export function UserListItem({ user }: { user: IUser }): JSX.Element {
-    const { isModalOpen, handleModalOpen, handleModalClose } = useUserPosts(
-        user.id
-    );
+    const props = useUserPosts(user.id);
+
+    const { handleModalOpen, isModalOpen, handleModalClose } = props;
 
     return (
         <>
@@ -29,8 +29,10 @@ export function UserListItem({ user }: { user: IUser }): JSX.Element {
                 maskClosable={true}
                 closable={true}
                 onOk={handleModalClose}
+                width={800}
+                style={{ top: 30 }}
             >
-                <UserPosts userId={user.id} onModalClose={handleModalClose} />
+                <UserPosts {...props} />
             </Modal>
         </>
     );

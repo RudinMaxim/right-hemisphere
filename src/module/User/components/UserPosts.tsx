@@ -1,24 +1,18 @@
 import { Card, List, Skeleton } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { IPost } from '../../../types/Post';
-import { useUserPosts } from '../useUserPosts';
+import { TUserPosts } from '../useUserPosts';
 
 const { Meta } = Card;
 
-export function UserPosts({
-    userId,
-    onModalClose,
-}: {
-    userId: number;
-    onModalClose: () => void;
-}): JSX.Element {
-    const { posts, isLoading, error } = useUserPosts(userId);
+export function UserPosts(props: TUserPosts): JSX.Element {
+    const { posts, isLoading, error, handleModalClose } = props;
 
     const navigate = useNavigate();
 
     const handlePostClick = (post: IPost) => {
         navigate(`/message/${post.id}`);
-        onModalClose();
+        handleModalClose();
     };
 
     if (error) {

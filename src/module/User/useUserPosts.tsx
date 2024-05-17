@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { ErrorAlert } from '../../components';
 import { useGetPostsByUserQuery } from '../../services/apiService';
+import { isErrorWithMessage } from '../../utils/isErrorWithMessage';
+
+export type TUserPosts = ReturnType<typeof useUserPosts>;
+
+const renderError = (error: string) => <ErrorAlert message={error} />;
 
 export const useUserPosts = (userId: number) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const { data: posts, isLoading, error } = useGetPostsByUserQuery(userId);
 
     const handleModalOpen = () => {
@@ -14,14 +19,14 @@ export const useUserPosts = (userId: number) => {
         setIsModalOpen(false);
     };
 
-    if (error && 'message' in error) {
+    if (isErrorWithMessage(error)) {
         return {
             posts: null,
             isLoading: false,
             isModalOpen: false,
             handleModalOpen,
             handleModalClose,
-            error: <ErrorAlert message={error.message} />,
+            error: renderError(error.message),
         };
     }
 
