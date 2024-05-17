@@ -13,6 +13,13 @@ import { initialsUser } from '../../../utils/initialsUser';
 const { Meta } = Card;
 const { Text, Link } = Typography;
 
+/**
+ * Renders a user information component that displays the user's name, username, email, address, phone, and company details.
+ *
+ * @param {Object} props - The component props.
+ * @param {IUser} props.user - The user object containing the user's information.
+ * @returns {JSX.Element} The rendered user information component.
+ */
 export function UserInfo({ user }: { user: IUser }): JSX.Element {
     const { name, username, email, address, phone, company } = user;
     const { street, suite, city, zipcode } = address;
