@@ -1,5 +1,5 @@
-import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
+import { Flex, Spin } from 'antd';
 
 /**
  * Renders a loading spinner indicator.
@@ -7,6 +7,10 @@ import { Spin } from "antd";
  */
 export function Loader() {
     return (
-        <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+        <Flex justify="center" align="middle">
+            <Spin
+                indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}
+            />
+        </Flex>
     );
 }

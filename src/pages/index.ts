@@ -1,5 +1,5 @@
-import { Home } from './Home/Home';
-import { Post } from './Post/Post';
+import { HomePage } from './HomePage';
+import { PostPage } from './PostPage';
 
-export { Home, Post };
+export { HomePage, PostPage };
 

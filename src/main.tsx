@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Provider store={store}>
             <Layout>
-                <Content>
+                <Content style={{ padding: '0 30px' }}>
                     <AppRoutes />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
