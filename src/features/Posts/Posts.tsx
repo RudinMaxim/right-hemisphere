@@ -1,7 +1,8 @@
 import { Loader } from '../../components';
 import { NotFoundPage } from '../../pages/NotFoundPage';
-import { PostComments, PostTitle } from './components';
+import { PostTitle } from './components';
 import { usePosts } from './usePosts';
+
 
 /**
  * Renders the Posts component, which displays a post and its comments.
@@ -14,17 +15,15 @@ import { usePosts } from './usePosts';
 export function Posts(): JSX.Element {
     const {
         isPostLoading,
-        isCommentsLoading,
         post,
         title,
         newTitle,
         handleTitleInputChange,
         handleUpdateTitleClick,
         isUpdateLoading,
-        comments,
     } = usePosts();
 
-    if (isPostLoading || isCommentsLoading) {
+    if (isPostLoading) {
         return <Loader />;
     }
 
@@ -42,7 +41,6 @@ export function Posts(): JSX.Element {
                 handleUpdateTitleClick={handleUpdateTitleClick}
                 isUpdateLoading={isUpdateLoading}
             />
-            <PostComments comments={comments} isLoading={isCommentsLoading} />
         </section>
     );
 }

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useSanitizeInput } from '../../hook/useSanitizeInput';
 import {
-    useGetCommentsByPostQuery,
     useGetPostByIdQuery,
     useUpdatePostTitleMutation,
 } from '../../services/apiService';
@@ -16,7 +15,6 @@ export type TPosts = ReturnType<typeof usePosts>;
  *
  * This hook is responsible for:
  * - Fetching a post by its ID using the `useGetPostByIdQuery` hook.
- * - Fetching comments for a post using the `useGetCommentsByPostQuery` hook.
  * - Updating the title of a post using the `useUpdatePostTitleMutation` hook.
  * - Handling changes to the new post title in the component state.
  * - Dispatching actions to update the post data in the application state.
@@ -28,9 +26,7 @@ export type TPosts = ReturnType<typeof usePosts>;
  * - `handleTitleChange`: A function to handle changes to the new post title input.
  * - `handleUpdateTitle`: A function to update the post title.
  * - `isUpdateLoading`: A boolean indicating whether the post title update is in progress.
- * - `comments`: The comments data fetched by the `useGetCommentsByPostQuery` hook.
  * - `isPostLoading`: A boolean indicating whether the post data is being fetched.
- * - `isCommentsLoading`: A boolean indicating whether the comments data is being fetched.
  */
 export const usePosts = () => {
     const { postId } = useParams<{ postId: string }>();
@@ -47,14 +43,6 @@ export const usePosts = () => {
             }),
         }
     );
-
-    const { data: comments, isLoading: isCommentsLoading } =
-        useGetCommentsByPostQuery(Number(postId), {
-            selectFromResult: ({ data, isLoading }) => ({
-                data,
-                isLoading,
-            }),
-        });
 
     const [
         updatePostTitleMutation,
@@ -92,8 +80,6 @@ export const usePosts = () => {
         handleTitleInputChange,
         handleUpdateTitleClick,
         isUpdateLoading,
-        comments,
         isPostLoading,
-        isCommentsLoading,
     };
 };

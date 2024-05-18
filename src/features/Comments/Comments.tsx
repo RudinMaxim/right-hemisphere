@@ -1,25 +1,14 @@
 import { Alert, Avatar, Card, List, Space, Typography } from 'antd';
-import { Loader } from '../../../components';
-import { IComment } from '../../../types/Comment';
-import { initialsUser } from '../../../utils/initialsUser';
+import { Loader } from '../../components';
+import { IComment } from '../../types/Comment';
+import { initialsUser } from '../../utils/initialsUser';
+import { useComments } from './useComments';
 
 const { Title } = Typography;
 
-interface PostCommentsProps {
-    comments: IComment[] | undefined;
-    isLoading: boolean;
-}
+export function Comments(): JSX.Element {
+    const { comments, isLoading } = useComments();
 
-/**
- * Renders a list of comments for a post.
- *
- * @param comments - An array of comment objects, each with a `name` and `body` property.
- * @returns A React component that displays the list of comments.
- */
-export function PostComments({
-    comments,
-    isLoading,
-}: PostCommentsProps): React.JSX.Element {
     if (isLoading) {
         return <Loader />;
     }
@@ -29,7 +18,7 @@ export function PostComments({
     }
 
     return (
-        <>
+        <section>
             <Title level={3} style={{ marginBottom: 16 }}>
                 Comments
             </Title>
@@ -39,7 +28,7 @@ export function PostComments({
                     renderItem={(comment) => <CommentsItem comment={comment} />}
                 />
             </Space>
-        </>
+        </section>
     );
 }
 

@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import { Posts } from '../features';
+import { Comments, Posts } from '../features';
 
 const { Title } = Typography;
 
@@ -10,6 +10,7 @@ export function PostPage() {
                 Post
             </Title>
             <Posts />
+            <Comments/>
         </section>
     );
 }
