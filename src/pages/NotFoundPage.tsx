@@ -10,7 +10,7 @@ export function NotFoundPage() {
                 404 - Page Not Found
             </Title>
             <div style={{ textAlign: 'center' }}>
-                <Link to="/">
+                <Link to="/right-hemisphere">
                     <Button type="primary">Go to Home</Button>
                 </Link>
             </div>
