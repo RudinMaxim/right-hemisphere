@@ -1,20 +1,18 @@
-import {
-  createBrowserRouter
-} from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import { HomePage, PostPage } from './pages';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/right-hemisphere/',
         element: <HomePage />,
     },
     {
-        path: '/message/:postId',
+        path: '/right-hemisphere/message/:postId',
         element: <PostPage />,
     },
     {
-        path: '*',
+        path: '/right-hemisphere/*',
         element: <NotFoundPage />,
     },
 ]);
