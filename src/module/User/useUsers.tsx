@@ -3,9 +3,9 @@ import { ErrorAlert, Loader } from '../../components';
 import { useGetUsersQuery } from '../../services/apiService';
 import { isErrorWithMessage } from '../../utils/isErrorWithMessage';
 
-const renderError = (error: string) => <ErrorAlert message={error} />;
-const renderLoader = () => <Loader />;
-const renderEmptyMessage = () => (
+const renderErrorMessage = (error: string) => <ErrorAlert message={error} />;
+const renderLoadingIndicator = () => <Loader />;
+const renderNoUsersMessage = () => (
     <Alert message={'No users found'} type="warning" showIcon />
 );
 
@@ -31,7 +31,7 @@ export const useUsers = () => {
         return {
             users: null,
             isLoadingUsers: false,
-            error: renderError(usersError.message),
+            error: renderErrorMessage(usersError.message),
         };
     }
 
@@ -39,7 +39,7 @@ export const useUsers = () => {
         return {
             users: null,
             isLoadingUsers: true,
-            error: renderLoader(),
+            error: renderLoadingIndicator(),
         };
     }
 
@@ -47,7 +47,7 @@ export const useUsers = () => {
         return {
             users: null,
             isLoadingUsers: false,
-            error: renderEmptyMessage(),
+            error: renderNoUsersMessage(),
         };
     }
 
