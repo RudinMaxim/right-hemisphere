@@ -1,9 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { IPost } from '../../types/Post';
+import {
+    fetchPostById,
+    fetchPosts,
+    updatePostTitle,
+} from '../thunks/postsThunks';
 
 interface PostsState {
     posts: IPost[];
     isLoading: boolean;
+    currentPost: IPost | null;
     error: string | null;
 }
 
@@ -11,37 +17,53 @@ const initialState: PostsState = {
     posts: [],
     isLoading: false,
     error: null,
+    currentPost: null,
 };
 
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {
-        setPosts: (state, action: PayloadAction<IPost[]>) => {
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(fetchPosts.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+        builder.addCase(fetchPosts.fulfilled, (state, action) => {
+            state.isLoading = false;
             state.posts = action.payload;
+        });
+        builder.addCase(fetchPosts.rejected, (state, action) => {
             state.isLoading = false;
+            state.error = action.error.message || 'Something went wrong';
+        });
+
+        builder.addCase(fetchPostById.pending, (state) => {
+            state.isLoading = true;
             state.error = null;
-        },
-        updatePost: (state, action: PayloadAction<IPost>) => {
-            const index = state.posts.findIndex(
-                (post) => post.id === action.payload.id
-            );
-            if (index !== -1) {
-                state.posts[index] = action.payload;
-            }
+        });
+        builder.addCase(fetchPostById.fulfilled, (state, action) => {
             state.isLoading = false;
+            state.currentPost = action.payload;
+        });
+        builder.addCase(fetchPostById.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error.message || 'Something went wrong';
+        });
+
+        builder.addCase(updatePostTitle.pending, (state) => {
+            state.isLoading = true;
             state.error = null;
-        },
-        setPostsLoading: (state, action: PayloadAction<boolean>) => {
-            state.isLoading = action.payload;
-        },
-        setPostsError: (state, action: PayloadAction<string | null>) => {
-            state.error = action.payload;
+        });
+        builder.addCase(updatePostTitle.fulfilled, (state, action) => {
             state.isLoading = false;
-        },
+            state.currentPost = action.payload;
+        });
+        builder.addCase(updatePostTitle.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.error.message || 'Something went wrong';
+        });
     },
 });
 
-export const { setPosts, updatePost, setPostsLoading, setPostsError } =
-    postsSlice.actions;
 export default postsSlice.reducer;

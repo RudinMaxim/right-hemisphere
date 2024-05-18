@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useSanitizeInput } from '../../hook/useSanitizeInput';
+import { AppDispatch, RootState } from '../../store/store';
 import {
-    useGetPostByIdQuery,
-    useUpdatePostTitleMutation,
-} from '../../services/apiService';
-import { updatePost } from '../../store/slice/postsSlice';
+    fetchPostById,
+    fetchPosts,
+    updatePostTitle,
+} from '../../store/thunks/postsThunks';
 
 export type TPosts = ReturnType<typeof usePosts>;
 
@@ -30,24 +31,13 @@ export type TPosts = ReturnType<typeof usePosts>;
  */
 export const usePosts = () => {
     const { postId } = useParams<{ postId: string }>();
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
 
-    const [newTitle, setNewTitle] = useState('');
-
-    const { data: post, isLoading: isPostLoading } = useGetPostByIdQuery(
-        Number(postId),
-        {
-            selectFromResult: ({ data, isLoading }) => ({
-                data,
-                isLoading,
-            }),
-        }
+    const { currentPost, isLoading, error } = useSelector(
+        (state: RootState) => state.posts
     );
 
-    const [
-        updatePostTitleMutation,
-        { data: updatedTitle, isLoading: isUpdateLoading },
-    ] = useUpdatePostTitleMutation();
+    const [newTitle, setNewTitle] = useState('');
 
     const sanitizeInput = useSanitizeInput();
 
@@ -57,29 +47,28 @@ export const usePosts = () => {
     };
 
     const handleUpdateTitleClick = useCallback(async () => {
-        if (post && newTitle !== post.title) {
-            const updatedPost = await updatePostTitleMutation({
-                postId: post.id,
-                newTitle,
-            }).unwrap();
-            dispatch(updatePost(updatedPost));
+        if (currentPost && newTitle !== currentPost.title) {
+            dispatch(updatePostTitle({ postId: currentPost.id, newTitle }));
             setNewTitle('');
         }
-    }, [newTitle, post, dispatch, updatePostTitleMutation]);
+    }, [newTitle, currentPost, dispatch]);
 
     useEffect(() => {
-        if (post) {
-            dispatch(updatePost(post));
+        dispatch(fetchPosts());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (postId) {
+            dispatch(fetchPostById(Number(postId)));
         }
-    }, [post, dispatch]);
+    }, [postId, dispatch]);
 
     return {
-        post,
-        title: updatedTitle,
+        post: currentPost,
         newTitle,
         handleTitleInputChange,
         handleUpdateTitleClick,
-        isUpdateLoading,
-        isPostLoading,
+        isLoading,
+        error,
     };
 };
