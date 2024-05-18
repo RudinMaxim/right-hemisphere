@@ -16,7 +16,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     <AppRoutes />
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>
-                    2024 © Рудин Максим для "Правое Полушарие Интроверта"
+                    2024 © Рудин Максим, Тестовое задание: для Правого
+                    Полушария Интроверта
                 </Footer>
             </Layout>
         </Provider>
