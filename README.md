@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# Тестовое задание: для Правого Полушария Интроверта
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+В данном тестовом задании я реализовал одностраничное приложение, используя `React`, `Redux Toolkit`,`Ant Design`, `React Router DOM`. С использованием API `JSONPlaceholder`.
 
-Currently, two official plugins are available:
+Приложение позволяет:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Просматривать 10 первых пользователей из `JSONPlaceholder Users`.
+- При клике на пользователя отобразить модальное окно, где отображается список его постов из `JSONPlaceholder Posts`.
+- Переходить на страницу поста (/message/:id пользователя) при клике на пост. На этой странице:
+  - Отображается сам пост.
+  - Присутствует инпут для редактирования заголовка поста.
+  - Отображаются комментарии к посту из `JSONPlaceholder Comments`.
 
-## Expanding the ESLint configuration
+GitHub Pages: <https://pages.github.com/>\*\*
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Спасибо, что уделили время, моему тестовому заданию. Буду рад присоединиться к комадне!
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+P.S.
+Стоит отметить, что у меня не было большого опыта работы с Redux Toolkit. В основном я использовал Zustand для управления состоянием в своих проектах.
