@@ -1,14 +1,33 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpg" href="/right-hemisphere/log.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Привет! Правое Полушарие Интроверта</title>
-    <script type="module" crossorigin src="/right-hemisphere/assets/index-CBwwgJb1.js"></script>
-    <link rel="stylesheet" crossorigin href="/right-hemisphere/assets/index-ctdIHUi-.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/jpg" href="/right-hemisphere/log.jpg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Привет! Правое Полушарие Интроверта</title>
+
+        <script type="text/javascript">
+            (function (l) {
+                if (l.search[1] === '/') {
+                    var decoded = l.search
+                        .slice(1)
+                        .split('&')
+                        .map(function (s) {
+                            return s.replace(/~and~/g, '&');
+                        })
+                        .join('?');
+                    window.history.replaceState(
+                        null,
+                        null,
+                        l.pathname.slice(0, -1) + decoded + l.hash
+                    );
+                }
+            })(window.location);
+        </script>
+      <script type="module" crossorigin src="/right-hemisphere/assets/index-AEZD_t7h.js"></script>
+      <link rel="stylesheet" crossorigin href="/right-hemisphere/assets/index-ctdIHUi-.css">
+    </head>
+    <body>
+        <div id="root"></div>
+    </body>
 </html>
