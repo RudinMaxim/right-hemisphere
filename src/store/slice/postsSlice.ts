@@ -44,5 +44,4 @@ const postsSlice = createSlice({
 
 export const { setPosts, updatePost, setPostsLoading, setPostsError } =
     postsSlice.actions;
-    
 export default postsSlice.reducer;

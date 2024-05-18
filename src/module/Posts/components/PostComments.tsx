@@ -1,8 +1,14 @@
-import { Avatar, Card, List, Typography } from 'antd';
+import { Alert, Avatar, Card, List, Space, Typography } from 'antd';
+import { Loader } from '../../../components';
 import { IComment } from '../../../types/Comment';
 import { initialsUser } from '../../../utils/initialsUser';
 
 const { Title } = Typography;
+
+interface PostCommentsProps {
+    comments: IComment[] | undefined;
+    isLoading: boolean;
+}
 
 /**
  * Renders a list of comments for a post.
@@ -12,30 +18,39 @@ const { Title } = Typography;
  */
 export function PostComments({
     comments,
-}: {
-    comments: IComment[] | undefined;
-}): React.JSX.Element {
-    if (!comments) {
-        return <div>Not faund comments</div>;
+    isLoading,
+}: PostCommentsProps): React.JSX.Element {
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    if (!comments || comments.length === 0) {
+        return <Alert message="NotFound" type="warning" showIcon />;
     }
 
     return (
         <>
-            <Title level={3}>Comments</Title>
-            <List
-                dataSource={comments}
-                renderItem={(comment) => (
-                    <Card>
-                        <List.Item.Meta
-                            avatar={
-                                <Avatar>{initialsUser(comment.name)}</Avatar>
-                            }
-                            title={comment.name}
-                            description={comment.body}
-                        />
-                    </Card>
-                )}
-            />
+            <Title level={3} style={{ marginBottom: 16 }}>
+                Comments
+            </Title>
+            <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                <List
+                    dataSource={comments}
+                    renderItem={(comment) => <CommentsItem comment={comment} />}
+                />
+            </Space>
         </>
+    );
+}
+
+function CommentsItem({ comment }: { comment: IComment }) {
+    return (
+        <Card>
+            <List.Item.Meta
+                avatar={<Avatar>{initialsUser(comment.name)}</Avatar>}
+                title={comment.name}
+                description={comment.body}
+            />
+        </Card>
     );
 }
