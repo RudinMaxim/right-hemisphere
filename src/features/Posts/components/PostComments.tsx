@@ -43,9 +43,16 @@ export function PostComments({
     );
 }
 
-function CommentsItem({ comment }: { comment: IComment }) {
+/**
+ * Renders a single comment item with the user's avatar, name, and comment body.
+ *
+ * @param {Object} props - The component props.
+ * @param {IComment} props.comment - The comment data to display.
+ * @returns {React.ReactElement} - The rendered comment item.
+ */
+function CommentsItem({ comment }: { comment: IComment }): React.JSX.Element {
     return (
-        <Card>
+        <Card style={{ marginBottom: '1rem' }}>
             <List.Item.Meta
                 avatar={<Avatar>{initialsUser(comment.name)}</Avatar>}
                 title={comment.name}

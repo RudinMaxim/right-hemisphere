@@ -3,7 +3,15 @@ import { NotFoundPage } from '../../pages/NotFoundPage';
 import { PostComments, PostTitle } from './components';
 import { usePosts } from './usePosts';
 
-export function Posts() {
+/**
+ * Renders the Posts component, which displays a post and its comments.
+ *
+ * The component fetches the post and comments data, and handles updating the post title.
+ * If the data is still loading or the post is not found, appropriate loading or error components are rendered.
+ *
+ * @returns {JSX.Element} The rendered Posts component.
+ */
+export function Posts(): JSX.Element {
     const {
         isPostLoading,
         isCommentsLoading,

@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import { Posts } from '../module';
+import { Posts } from '../features';
 
 const { Title } = Typography;
 

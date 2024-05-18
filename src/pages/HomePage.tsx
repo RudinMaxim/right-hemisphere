@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import { Users } from '../module';
+import { Users } from '../features';
 
 const { Title } = Typography;
 
