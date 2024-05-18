@@ -6,15 +6,26 @@ import { useComments } from './useComments';
 
 const { Title } = Typography;
 
-export function Comments(): JSX.Element {
-    const { comments, isLoading } = useComments();
+/**
+ * Renders a section displaying a list of comments.
+ *
+ * This component fetches the comments from the `useComments` hook and renders them in a list. If the comments are still loading, a loader is displayed. If there is an error fetching the comments, an error alert is shown. If there are no comments, a warning alert is displayed.
+ *
+ * @returns {JSX.Element | null} The rendered comments section.
+ */
+export function Comments(): JSX.Element | null {
+    const { comments, error, isLoading } = useComments();
+
+    if (error) {
+        return <Alert message={error} type="error" showIcon />;
+    }
 
     if (isLoading) {
         return <Loader />;
     }
 
     if (!comments || comments.length === 0) {
-        return <Alert message="NotFound" type="warning" showIcon />;
+        return null;
     }
 
     return (

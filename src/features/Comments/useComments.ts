@@ -1,27 +1,29 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useGetCommentsByPostQuery } from '../../services/apiService';
+import { clearComments } from '../../store/slice/commentsSlice';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchCommentsByPostId } from '../../store/thunks/commentsThunks';
 
-
-/**
- * A custom React hook that fetches and returns comments for a given post ID.
- *
- * @returns An object containing the fetched comments and a loading state.
- */
 export function useComments() {
     const { postId } = useParams<{ postId: string }>();
+    const dispatch: AppDispatch = useDispatch();
+    const {
+        comments,
+        loading: isLoading,
+        error,
+    } = useSelector((state: RootState) => state.comments);
 
-    const { data: comments, isLoading } = useGetCommentsByPostQuery(
-        Number(postId),
-        {
-            selectFromResult: ({ data, isLoading }) => ({
-                data,
-                isLoading,
-            }),
+    useEffect(() => {
+        if (postId) {
+            dispatch(clearComments());
+            dispatch(fetchCommentsByPostId(Number(postId)));
         }
-    );
+    }, [dispatch, postId]);
 
     return {
         comments,
         isLoading,
+        error,
     };
 }

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { API_URL } from '../../constants/url';
-import { IPost } from '../../types/Post';
+import { IPost, postSchema } from '../../types/Post';
 
 export const fetchPosts = createAsyncThunk<IPost[], void>(
     'posts/fetchPosts',
@@ -9,7 +9,8 @@ export const fetchPosts = createAsyncThunk<IPost[], void>(
         const response = await axios.get<IPost[]>('/posts', {
             baseURL: API_URL,
         });
-        return response.data;
+        const posts = response.data.map((post) => postSchema.parse(post));
+        return posts;
     }
 );
 
@@ -19,7 +20,8 @@ export const fetchPostById = createAsyncThunk<IPost, number>(
         const response = await axios.get<IPost>(`/posts/${postId}`, {
             baseURL: API_URL,
         });
-        return response.data;
+        const post = postSchema.parse(response.data);
+        return post;
     }
 );
 
@@ -34,5 +36,6 @@ export const updatePostTitle = createAsyncThunk<
         },
         { baseURL: API_URL }
     );
-    return response.data;
+    const post = postSchema.parse(response.data);
+    return post;
 });

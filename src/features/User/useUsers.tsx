@@ -1,7 +1,9 @@
 import { Alert } from 'antd';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { ErrorAlert, Loader } from '../../components';
-import { useGetUsersQuery } from '../../services/apiService';
-import { isErrorWithMessage } from '../../utils/isErrorWithMessage';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchUsers } from '../../store/thunks/userThunks';
 
 const renderErrorMessage = (error: string) => <ErrorAlert message={error} />;
 const renderLoadingIndicator = () => <Loader />;
@@ -10,28 +12,32 @@ const renderNoUsersMessage = () => (
 );
 
 /**
- * A custom React hook that fetches and manages user data.
+ * A custom React hook that manages the state and fetching of user data.
  *
- * This hook uses the `useGetUsersQuery` hook to fetch user data, and returns an object with the following properties:
+ * This hook is responsible for:
+ * - Fetching the list of users from the server using the `fetchUsers` action creator.
+ * - Storing the fetched users in the Redux store.
+ * - Providing access to the users, loading state, and any errors that may occur during the fetch.
  *
- * - `users`: an array of user objects, or `null` if there is an error or no data is available
- * - `isLoadingUsers`: a boolean indicating whether the user data is currently being loaded
- * - `error`: an error message, or `null` if there is no error
- *
- * The hook handles various error and loading states, and returns the appropriate data and state based on the current state of the user data fetch.
+ * @returns An object containing the fetched users, a loading flag, and any error messages.
  */
 export const useUsers = () => {
     const {
-        data: users,
+        users,
         isLoading: isLoadingUsers,
-        error: usersError,
-    } = useGetUsersQuery();
+        error,
+    } = useSelector((state: RootState) => state.users);
+    const dispatch: AppDispatch = useDispatch();
 
-    if (isErrorWithMessage(usersError)) {
+    useEffect(() => {
+        dispatch(fetchUsers());
+    }, [dispatch]);
+
+    if (error) {
         return {
             users: null,
             isLoadingUsers: false,
-            error: renderErrorMessage(usersError.message),
+            error: renderErrorMessage(error),
         };
     }
 
