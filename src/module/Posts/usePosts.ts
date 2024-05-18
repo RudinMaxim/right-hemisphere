@@ -75,6 +75,7 @@ export const usePosts = () => {
                 newTitle,
             }).unwrap();
             dispatch(updatePost(updatedPost));
+            setNewTitle('');
         }
     }, [newTitle, post, dispatch, updatePostTitleMutation]);
 

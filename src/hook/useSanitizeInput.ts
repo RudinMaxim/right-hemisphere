@@ -5,10 +5,10 @@ import { useMemo } from "react";
  *
  * @returns {(input: string) => string} A function that takes a string input and returns a sanitized version of the input.
  */
-export const useSanitizeInput = () => {
+export const useSanitizeInput = (): (input: string) => string => {
     const sanitizeInput = useMemo(() => {
         return (input: string) => {
-            return input.replace(/[^a-zA-Z0-9 ]/g, '');
+            return input.replace(/[^a-zA-Zа-яА-Я0-9 ]/g, '');
         };
     }, []);
 
