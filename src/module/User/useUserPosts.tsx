@@ -37,7 +37,7 @@ export const useUserPosts = (userId: number) => {
     const navigate = useNavigate();
 
     const handlePostClick = (post: IPost) => {
-        navigate(`/message/${post.id}`);
+        navigate(`/right-hemisphere/message/${post.id}`);
         handleModalClose();
     };
 
