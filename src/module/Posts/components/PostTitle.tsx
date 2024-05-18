@@ -10,6 +10,17 @@ interface PostTitleProps
     handleUpdateTitleClick: () => void;
 }
 
+/**
+ * Renders a post title card with a title input and update button.
+ *
+ * @param post - The post object containing the post data.
+ * @param title - The current title of the post.
+ * @param newTitle - The new title entered by the user.
+ * @param isUpdateLoading - A flag indicating whether the title update is in progress.
+ * @param handleTitleInputChange - A function to handle changes to the title input.
+ * @param handleUpdateTitleClick - A function to handle clicks on the update title button.
+ * @returns A JSX.Element representing the post title card.
+ */
 export function PostTitle({
     post,
     title,
@@ -31,19 +42,28 @@ export function PostTitle({
             }
             style={{ marginBottom: '20px' }}
             actions={[
-                <TitleInput
-                    key="input"
-                    newTitle={newTitle}
-                    handleTitleInputChange={handleTitleInputChange}
-                    isUpdateLoading={isUpdateLoading}
-                />,
-                <UpdateTitleButton
-                    key="button"
-                    newTitle={newTitle}
-                    post={post}
-                    handleUpdateTitleClick={handleUpdateTitleClick}
-                    isUpdateLoading={isUpdateLoading}
-                />,
+                <div
+                    key="actions"
+                    style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+                        gap: '1rem',
+                    }}
+                >
+                    <TitleInput
+                        newTitle={newTitle}
+                        handleTitleInputChange={handleTitleInputChange}
+                        isUpdateLoading={isUpdateLoading}
+                    />
+                    <UpdateTitleButton
+                        newTitle={newTitle}
+                        post={post}
+                        handleUpdateTitleClick={handleUpdateTitleClick}
+                        isUpdateLoading={isUpdateLoading}
+                    />
+                </div>,
             ]}
         >
             <Paragraph style={{ textAlign: 'center' }}>{post?.body}</Paragraph>
@@ -51,25 +71,42 @@ export function PostTitle({
     );
 }
 
-const TitleInput = ({
+/**
+ * Renders an input field for updating the title of a post.
+ *
+ * @param newTitle - The current title of the post.
+ * @param handleTitleInputChange - A function to handle changes to the title input.
+ * @param isUpdateLoading - A boolean indicating whether an update is currently in progress.
+ */
+function TitleInput({
     newTitle,
     handleTitleInputChange,
     isUpdateLoading,
 }: Pick<
     PostTitleProps,
     'newTitle' | 'handleTitleInputChange' | 'isUpdateLoading'
->) => (
-    <Input
-        value={newTitle}
-        onChange={handleTitleInputChange}
-        placeholder="Enter new title"
-        style={{ width: '300px' }}
-        maxLength={MAX_TITLE_LENGTH}
-        disabled={isUpdateLoading}
-    />
-);
+>): JSX.Element {
+    return (
+        <Input
+            value={newTitle}
+            onChange={handleTitleInputChange}
+            placeholder="Enter new title"
+            style={{ maxWidth: '300px' , margin: '0 1rem'}}
+            maxLength={MAX_TITLE_LENGTH}
+            disabled={isUpdateLoading}
+        />
+    );
+}
 
-const UpdateTitleButton = ({
+/**
+ * A button component that updates the title of a post.
+ *
+ * @param newTitle - The new title to be set for the post.
+ * @param post - The post object that the title will be updated for.
+ * @param handleUpdateTitleClick - A function that is called when the button is clicked to update the title.
+ * @param isUpdateLoading - A boolean indicating whether the title update is currently in progress.
+ */
+export function UpdateTitleButton({
     newTitle,
     post,
     handleUpdateTitleClick,
@@ -77,13 +114,15 @@ const UpdateTitleButton = ({
 }: Pick<
     PostTitleProps,
     'newTitle' | 'post' | 'handleUpdateTitleClick' | 'isUpdateLoading'
->) => (
-    <Button
-        type="primary"
-        onClick={handleUpdateTitleClick}
-        loading={isUpdateLoading}
-        disabled={isUpdateLoading || !newTitle || newTitle === post?.title}
-    >
-        Update Title
-    </Button>
-);
+>): JSX.Element {
+    return (
+        <Button
+            type="primary"
+            onClick={handleUpdateTitleClick}
+            loading={isUpdateLoading}
+            disabled={isUpdateLoading || !newTitle || newTitle === post?.title}
+        >
+            Update Title
+        </Button>
+    );
+}
