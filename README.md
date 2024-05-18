@@ -11,7 +11,7 @@
   - Присутствует инпут для редактирования заголовка поста.
   - Отображаются комментарии к посту из `JSONPlaceholder Comments`.
 
-GitHub Pages: <https://pages.github.com/>\*\*
+GitHub Pages: [<https://pages.github.com/>\*\*](https://rudinmaxim.github.io/right-hemisphere/)
 
 Спасибо, что уделили время, моему тестовому заданию. Буду рад присоединиться к комадне!
 
