@@ -12,7 +12,8 @@ export const router = createBrowserRouter([
         element: <PostPage />,
     },
     {
-        path: '/right-hemisphere/*',
-        element: <Navigate to="/" />,
+        path: '*',
+        element: <Navigate to="/right-hemisphere/" />,
     },
+    
 ]);

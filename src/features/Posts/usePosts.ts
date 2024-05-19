@@ -28,10 +28,13 @@ export type TPosts = ReturnType<typeof usePosts>;
  * - `handleUpdateTitle`: A function to update the post title.
  * - `isUpdateLoading`: A boolean indicating whether the post title update is in progress.
  * - `isPostLoading`: A boolean indicating whether the post data is being fetched.
+ * - `isEditingTitle`
+ * - `handleEditTitleClick`
  */
 export const usePosts = () => {
     const { postId } = useParams<{ postId: string }>();
     const [newTitle, setNewTitle] = useState<string>('');
+    const [isEditingTitle, setIsEditingTitle] = useState<boolean>(false);
 
     const sanitizeInput = useSanitizeInput();
 
@@ -49,8 +52,13 @@ export const usePosts = () => {
         if (currentPost && newTitle !== currentPost.title) {
             dispatch(updatePostTitle({ postId: currentPost.id, newTitle }));
             setNewTitle('');
+            setIsEditingTitle(false)
         }
     }, [newTitle, currentPost, dispatch]);
+
+    const handleEditTitleClick = () => {
+        setIsEditingTitle(!isEditingTitle);
+    };
 
     useEffect(() => {
         dispatch(fetchPosts());
@@ -65,9 +73,11 @@ export const usePosts = () => {
     return {
         post: currentPost,
         newTitle,
-        handleTitleInputChange,
-        handleUpdateTitleClick,
         isLoading,
         error,
+        isEditingTitle,
+        handleEditTitleClick,
+        handleTitleInputChange,
+        handleUpdateTitleClick,
     };
 };

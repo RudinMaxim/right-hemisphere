@@ -15,10 +15,12 @@ export function Posts(): JSX.Element {
     const {
         post,
         newTitle,
-        handleTitleInputChange,
-        handleUpdateTitleClick,
         isLoading,
         error,
+        isEditingTitle,
+        handleEditTitleClick,
+        handleTitleInputChange,
+        handleUpdateTitleClick,
     } = usePosts();
 
     if (error) {
@@ -35,6 +37,8 @@ export function Posts(): JSX.Element {
                 post={post}
                 newTitle={newTitle}
                 isLoading={isLoading}
+                isEditingTitle={isEditingTitle}
+                handleEditTitleClick={handleEditTitleClick}
                 handleTitleInputChange={handleTitleInputChange}
                 handleUpdateTitleClick={handleUpdateTitleClick}
             />

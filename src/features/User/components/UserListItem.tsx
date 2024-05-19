@@ -24,13 +24,15 @@ export function UserListItem({ user }: { user: IUser }): JSX.Element {
         handlePostClick,
     } = useUserPosts(id);
 
+    const openBy = username ?? name ?? 'unknown';
+
     return (
         <>
             <Card
                 key={`UserListItem__${id}`}
                 actions={[
                     <Button onClick={handleModalOpen}>
-                        Open posts by {username ?? name ?? 'unknown'}
+                        Open posts by {openBy}
                     </Button>,
                 ]}
                 style={{ marginBottom: '1rem' }}
