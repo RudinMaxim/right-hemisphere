@@ -1,4 +1,4 @@
-import { ErrorAlert, Loader } from '../../components';
+import { ErrorAlert } from '../../components';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { PostTitle } from './components';
 import { usePosts } from './usePosts';
@@ -20,10 +20,6 @@ export function Posts(): JSX.Element {
         isLoading,
         error,
     } = usePosts();
-
-    if (isLoading) {
-        return <Loader />;
-    }
 
     if (error) {
         return <ErrorAlert message={error} />;
