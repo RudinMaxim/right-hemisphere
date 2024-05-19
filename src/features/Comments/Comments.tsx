@@ -1,6 +1,7 @@
 import { Alert, Avatar, Card, List, Space, Typography } from 'antd';
 import { Loader } from '../../components';
 import { IComment } from '../../types/Comment';
+import { getAvatarBackgroundColor } from '../../utils/getAvatarBackgroundColor';
 import { initialsUser } from '../../utils/initialsUser';
 import { useComments } from './useComments';
 
@@ -52,9 +53,13 @@ export function Comments(): JSX.Element | null {
  */
 function CommentsItem({ comment }: { comment: IComment }): React.JSX.Element {
     return (
-        <Card style={{ marginBottom: '1rem' }}>
+        <Card
+            style={{
+                marginBottom: '1rem',
+            }}
+        >
             <List.Item.Meta
-                avatar={<Avatar>{initialsUser(comment.name)}</Avatar>}
+                avatar={<Avatar style={{ background: getAvatarBackgroundColor(comment.name)}}>{initialsUser(comment.name)}</Avatar>}
                 title={comment.name}
                 description={comment.body}
             />

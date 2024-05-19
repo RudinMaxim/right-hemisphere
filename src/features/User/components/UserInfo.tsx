@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Avatar, Card, Descriptions, Space, Typography } from 'antd';
 import { IUser } from '../../../types/User';
+import { getAvatarBackgroundColor } from '../../../utils/getAvatarBackgroundColor';
 import { initialsUser } from '../../../utils/initialsUser';
 
 const { Meta } = Card;
@@ -33,7 +34,16 @@ export function UserInfo({ user }: { user: IUser }): JSX.Element {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}
-                avatar={<Avatar>{initialsUser(name)}</Avatar>}
+                avatar={
+                    <Avatar
+                        style={{
+                            background: getAvatarBackgroundColor(name),
+                            fontSize: '1rem',
+                        }}
+                    >
+                        {initialsUser(name)}
+                    </Avatar>
+                }
                 title={
                     <Text strong>
                         {name} #{username}
