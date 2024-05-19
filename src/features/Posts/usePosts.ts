@@ -52,12 +52,20 @@ export const usePosts = () => {
         if (currentPost && newTitle !== currentPost.title) {
             dispatch(updatePostTitle({ postId: currentPost.id, newTitle }));
             setNewTitle('');
-            setIsEditingTitle(false)
+            setIsEditingTitle(false);
         }
     }, [newTitle, currentPost, dispatch]);
 
     const handleEditTitleClick = () => {
         setIsEditingTitle(!isEditingTitle);
+    };
+
+    const handleTitleInputKeyDown = (
+        e: React.KeyboardEvent<HTMLInputElement>
+    ) => {
+        if (e.key === 'Enter') {
+            handleUpdateTitleClick();
+        }
     };
 
     useEffect(() => {
@@ -78,6 +86,7 @@ export const usePosts = () => {
         isEditingTitle,
         handleEditTitleClick,
         handleTitleInputChange,
+        handleTitleInputKeyDown,
         handleUpdateTitleClick,
     };
 };

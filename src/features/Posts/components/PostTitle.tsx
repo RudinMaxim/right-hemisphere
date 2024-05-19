@@ -14,6 +14,7 @@ interface PostTitleProps
         | 'isLoading'
         | 'handleEditTitleClick'
         | 'isEditingTitle'
+        | 'handleTitleInputKeyDown'
     > {
     handleTitleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleUpdateTitleClick: () => void;
@@ -39,6 +40,7 @@ export function PostTitle({
     handleUpdateTitleClick,
     isEditingTitle,
     handleEditTitleClick,
+    handleTitleInputKeyDown
 }: PostTitleProps): JSX.Element {
     const renderActions = () => (
         <div
@@ -56,6 +58,7 @@ export function PostTitle({
                     newTitle={newTitle}
                     handleTitleInputChange={handleTitleInputChange}
                     isLoading={isLoading}
+                    handleTitleInputKeyDown={handleTitleInputKeyDown}
                 />
             )}
             {isEditingTitle ? (
@@ -102,15 +105,18 @@ export function PostTitle({
 function TitleInput({
     newTitle,
     handleTitleInputChange,
+    handleTitleInputKeyDown,
     isLoading,
 }: Pick<
     PostTitleProps,
-    'newTitle' | 'handleTitleInputChange' | 'isLoading'
+    'newTitle' | 'handleTitleInputChange' | 'isLoading' | 'handleTitleInputKeyDown'
 >): JSX.Element {
+    
     return (
         <Input
             value={newTitle}
             onChange={handleTitleInputChange}
+            onKeyDown={handleTitleInputKeyDown}
             placeholder="Enter new title"
             style={{ maxWidth: '300px', margin: '0 1rem' }}
             maxLength={MAX_TITLE_LENGTH}

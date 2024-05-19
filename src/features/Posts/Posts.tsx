@@ -1,5 +1,4 @@
 import { ErrorAlert } from '../../components';
-import { NotFoundPage } from '../../pages/NotFoundPage';
 import { PostTitle } from './components';
 import { usePosts } from './usePosts';
 
@@ -9,9 +8,9 @@ import { usePosts } from './usePosts';
  * The component fetches the post and comments data, and handles updating the post title.
  * If the data is still loading or the post is not found, appropriate loading or error components are rendered.
  *
- * @returns {JSX.Element} The rendered Posts component.
+ * @returns {JSX.Element | null} The rendered Posts component.
  */
-export function Posts(): JSX.Element {
+export function Posts(): JSX.Element | null {
     const {
         post,
         newTitle,
@@ -21,6 +20,7 @@ export function Posts(): JSX.Element {
         handleEditTitleClick,
         handleTitleInputChange,
         handleUpdateTitleClick,
+        handleTitleInputKeyDown,
     } = usePosts();
 
     if (error) {
@@ -28,7 +28,7 @@ export function Posts(): JSX.Element {
     }
 
     if (!post) {
-        return <NotFoundPage />;
+        return null;
     }
 
     return (
@@ -41,6 +41,7 @@ export function Posts(): JSX.Element {
                 handleEditTitleClick={handleEditTitleClick}
                 handleTitleInputChange={handleTitleInputChange}
                 handleUpdateTitleClick={handleUpdateTitleClick}
+                handleTitleInputKeyDown={handleTitleInputKeyDown}
             />
         </section>
     );
