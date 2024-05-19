@@ -25,13 +25,6 @@ const apiService = createApi({
         getCommentsByPost: builder.query<IComment[], number>({
             query: (postId) => `/comments?postId=${postId}`,
         }),
-        updatePostTitle: builder.mutation<IPost, { postId: number; newTitle: string }>({
-            query: ({ postId, newTitle }) => ({
-                url: `/posts/${postId}`,
-                method: 'PUT',
-                body: { title: newTitle },
-            }),
-        }),        
     }),
 });
 
@@ -40,6 +33,5 @@ export const {
     useGetPostsByUserQuery,
     useGetPostByIdQuery,
     useGetCommentsByPostQuery,
-    useUpdatePostTitleMutation,
 } = apiService;
 export default apiService;

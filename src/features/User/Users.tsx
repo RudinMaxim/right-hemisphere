@@ -1,5 +1,5 @@
 import { List } from 'antd';
-import { Loader } from '../../components';
+import { ErrorAlert, Loader } from '../../components';
 import { UserListItem } from './components';
 import { useUsers } from './useUsers';
 
@@ -12,13 +12,19 @@ import { useUsers } from './useUsers';
  * @returns {JSX.Element | null} The rendered list of users, or null if there are no users or an error occurred.
  */
 export function Users(): JSX.Element | null {
-    const { users, isLoadingUsers, error } = useUsers();
+    const { users, isLoading, error } = useUsers();
 
-    if (error) return error;
+    if (error) {
+        return <ErrorAlert message={error} />;
+    }
 
-    if (isLoadingUsers) return <Loader />;
+    if (isLoading) {
+        return <Loader />;
+    }
 
-    if (!users) return null;
+    if (!users || users.length === 0) {
+        return null;
+    }
 
     return (
         <List

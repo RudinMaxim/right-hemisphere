@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorAlert } from '../../components';
 import { useGetPostsByUserQuery } from '../../services/apiService';
 import { IPost } from '../../types/Post';
-import { isErrorWithMessage } from '../../utils/isErrorWithMessage';
 
 export type TUserPosts = ReturnType<typeof useUserPosts>;
-
-const renderError = (error: string) => <ErrorAlert message={error} />;
 
 /**
  * A custom React hook that manages the state and behavior of a user's posts.
@@ -41,18 +37,6 @@ export const useUserPosts = (userId: number) => {
         handleModalClose();
     };
 
-    if (isErrorWithMessage(error)) {
-        return {
-            posts: null,
-            isLoading: false,
-            isModalOpen: false,
-            handleModalOpen,
-            handleModalClose,
-            handlePostClick,
-            error: renderError(error.message),
-        };
-    }
-
     return {
         posts,
         isLoading,
@@ -60,6 +44,6 @@ export const useUserPosts = (userId: number) => {
         handleModalOpen,
         handleModalClose,
         handlePostClick,
-        error: null,
+        error,
     };
 };

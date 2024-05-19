@@ -31,15 +31,14 @@ export type TPosts = ReturnType<typeof usePosts>;
  */
 export const usePosts = () => {
     const { postId } = useParams<{ postId: string }>();
-    const dispatch: AppDispatch = useDispatch();
+    const [newTitle, setNewTitle] = useState<string>('');
 
+    const sanitizeInput = useSanitizeInput();
+
+    const dispatch: AppDispatch = useDispatch();
     const { currentPost, isLoading, error } = useSelector(
         (state: RootState) => state.posts
     );
-
-    const [newTitle, setNewTitle] = useState('');
-
-    const sanitizeInput = useSanitizeInput();
 
     const handleTitleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const sanitizedValue = sanitizeInput(e.target.value);

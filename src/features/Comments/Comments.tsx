@@ -1,5 +1,5 @@
-import { Alert, Avatar, Card, List, Space, Typography } from 'antd';
-import { Loader } from '../../components';
+import { Avatar, Card, List, Space, Typography } from 'antd';
+import { ErrorAlert } from '../../components';
 import { IComment } from '../../types/Comment';
 import { getAvatarBackgroundColor } from '../../utils/getAvatarBackgroundColor';
 import { initialsUser } from '../../utils/initialsUser';
@@ -18,11 +18,11 @@ export function Comments(): JSX.Element | null {
     const { comments, error, isLoading } = useComments();
 
     if (error) {
-        return <Alert message={error} type="error" showIcon />;
+        return <ErrorAlert message={error} />;
     }
 
     if (isLoading) {
-        return <Loader />;
+        return null;
     }
 
     if (!comments || comments.length === 0) {
@@ -59,7 +59,15 @@ function CommentsItem({ comment }: { comment: IComment }): React.JSX.Element {
             }}
         >
             <List.Item.Meta
-                avatar={<Avatar style={{ background: getAvatarBackgroundColor(comment.name)}}>{initialsUser(comment.name)}</Avatar>}
+                avatar={
+                    <Avatar
+                        style={{
+                            background: getAvatarBackgroundColor(comment.name),
+                        }}
+                    >
+                        {initialsUser(comment.name)}
+                    </Avatar>
+                }
                 title={comment.name}
                 description={comment.body}
             />

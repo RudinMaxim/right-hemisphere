@@ -1,4 +1,5 @@
 import { Card, List, Skeleton, Typography } from 'antd';
+import { ErrorAlert } from '../../../components';
 import { TUserPosts } from '../useUserPosts';
 
 const { Meta } = Card;
@@ -14,11 +15,13 @@ const { Text } = Typography;
  * @param props.handlePostClick - A function to handle clicks on individual posts.
  * @returns The rendered UserPosts component.
  */
-export function UserPosts(props: TUserPosts): JSX.Element {
+export function UserPosts(
+    props: Pick<TUserPosts, 'posts' | 'isLoading' | 'error' | 'handlePostClick'>
+): JSX.Element | null {
     const { posts, isLoading, error, handlePostClick } = props;
 
     if (error) {
-        return <Text type="danger">{error}</Text>;
+        return <ErrorAlert message={error as string} />;
     }
 
     if (isLoading) {
@@ -34,7 +37,7 @@ export function UserPosts(props: TUserPosts): JSX.Element {
     }
 
     if (!posts || posts.length === 0) {
-        return <Text>No posts found.</Text>;
+        return null;
     }
 
     return (
